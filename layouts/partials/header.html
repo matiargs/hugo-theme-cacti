@@ -1,0 +1,19 @@
+<header id="header" class="mb2">
+  <a href="{{ .Site.BaseURL }}">
+    <div id="logo" style="background-image: url({{"images/logo.png" | absURL }})"></div>
+    <div id="title">
+      <h1>{{ .Site.Title }}</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      {{- range .Site.Menus.main -}}
+      <li>
+        <a href="{{ .URL }}">
+          {{ .Name }}
+        </a>
+      </li>
+      {{- end -}}
+    </ul>
+  </div>
+</header>
