@@ -11,8 +11,8 @@
       <h1 class="title" itemprop="name headline">
         {{ .Title }}
       </h1>
-      <div class="meta">
-        <div class="postdate">
+      <div class="metadata">
+        <div class="post-date">
           {{ $dataFormat := .Site.Params.dateFormat | default "2006-01-02" }}
           <time datetime="{{ .Date }}" itemprop="datePublished">{{ .Date.Format $dataFormat }}</time>
           {{ if (and .Site.Params.show_updated (ne .Lastmod .Date)) }}
@@ -21,33 +21,37 @@
         </div>
         {{ $showReadTime := .Site.Params.showReadTime | default false }}
         {{if $showReadTime}}
-        <div class="article-read-time">
+        <div class="post-read-time">
           <i class="fa fa-clock-o" aria-hidden="true"></i>
           {{ $readTime := math.Round (div (countwords .Content) 220.0) }}
           {{ $readTime }} minute read
         </div>
         {{ end }}
         {{ if gt .Params.categories 0 }}
-        <div class="article-category">
+        <div class="post-category">
             <i class="fa fa-archive" aria-hidden="true"></i>
             {{ range $index, $value := .Params.categories }}
             {{ if gt $index 0 }} {{ print ", " }} {{ end }}
-            <a class="category-link" href="{{ "/categories/" | relLangURL }}{{ $value | urlize }}">{{ $value }}</a>
+            {{/*  <a class="category-link" href="{{ "/categories/" | relLangURL }}{{ $value | urlize }}">{{ $value }}</a>  */}}
+            <span>{{ $value }}</span>
             {{ end }}
         </div>
         {{ end }}
         {{ if gt .Params.tags 0 }}
-        <div class="article-tag">
+        <div class="post-tag-list">
             <i class="fa fa-tag" aria-hidden="true"></i>
             {{ range $index, $value := .Params.tags }}
-            {{ if gt $index 0 }} {{ print ", " }} {{ end }}
-            <a class="tag-link" href="{{ "/tags/" | relLangURL }}{{ $value | urlize }}" rel="tag">{{ $value }}</a>
+            {{ if gt $index 0 }}{{ print "," }}{{ end }}
+            {{/*  TODO: add taxonomy page for tags  */}}
+            {{/*  <a class="tag-link" href="{{ "/tags/" | relLangURL }}{{ $value | urlize }}" rel="tag">{{ $value }}</a>  */}}
+            <span>{{ $value }}</span>
             {{ end }}
         </div>
         {{ end }}
       </div>
     </header>
 
+    {{/*  TODO: add gallery  */}}
   {{/*  {{ with .Resources.ByType "image" }}
     <div class="article-gallery">
       {{ range $index, $value := . }}
@@ -57,8 +61,9 @@
       {{ end }}
     </div>
   {{ end }}  */}}
+
     <div class="content index" itemprop="articleBody">
-      {{ .Content}}
+      {{ partial "content.html" . }}
     </div>
 
     {{ partial "backlinks.html" . }}
