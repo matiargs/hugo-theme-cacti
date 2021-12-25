@@ -1,0 +1,439 @@
+article {
+  header {
+    .title {
+      margin-top: 0;
+      margin-bottom: 0;
+      text-transform: none;
+      font-size: 1.5em;
+      line-height: 1.25;
+    }
+
+    .metadata {
+      margin-top: 0;
+      margin-bottom: 1rem;
+
+    }
+
+    .metadata * {
+      color: $color-accent-3;
+      font-size: .85rem;
+    }
+
+    .post-date {
+      display: inline;
+    }
+  }
+
+  .content {
+    h2 {
+      &:before {
+        position: absolute;
+        top: -3px;
+        left: -1.4rem;
+        color: $color-accent-1;
+        content: "#";
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .content img,
+  .content video {
+    display: block;
+    margin: auto;
+    max-width: 100%;
+    height: auto;
+
+    /* http://webdesignerwall.com/tutorials/css-elastic-videos */
+    .video-container {
+      position: relative;
+      overflow: hidden;
+      padding-top: 56.25%;
+      height: 0;
+
+      iframe,
+      object,
+      embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-top: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+  }
+
+  blockquote {
+    margin: 1rem 10px;
+    padding: .5em 10px;
+    background: inherit;
+    color: $color-quote;
+    font-weight: bold;
+    border-left: .1rem solid $color-quote;
+
+    p {
+      margin: 0;
+    }
+
+    cite>sup {
+      margin-left: .2rem;
+    }
+  }
+
+  .pullquote {
+    margin: 0;
+    width: 45%;
+    text-align: left;
+
+    &.left {
+      margin-right: 1em;
+      margin-left: .5em;
+    }
+
+    &.right {
+      margin-right: .5em;
+      margin-left: 1em;
+    }
+  }
+
+  .caption {
+    position: relative;
+    display: block;
+    margin-top: .5em;
+    color: $color-meta;
+    text-align: center;
+    font-size: .9em;
+  }
+
+  kbd {
+    font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
+    background: $color-meta-code;
+    padding: 1px 3px;
+    margin: 0 2px;
+    border-radius: 4px;
+    font-size: .9rem;
+    font-weight: 400;
+  }
+
+  .no-link {
+    color: $color-text;
+    text-decoration: none;
+    @include underline(5px, $color-text);
+
+    &:hover {
+      background-image: linear-gradient(transparent, transparent 4px, $color-no-link 4px, $color-no-link) !important;
+    }
+  }
+}
+
+.post-category a,
+.post-tag-list a {
+  @include underline(10px, $color-link);
+}
+
+@media (min-width: 480px) {
+
+  .post-read-time,
+  .post-tag,
+  .post-category,
+  .post-tag-list {
+    display: inline;
+
+    &:before {
+      content: "|";
+    }
+  }
+}
+
+#post-menu {
+  position: fixed;
+  top: 4rem;
+  right: 0;
+  display: inline-block;
+  z-index: 100;
+
+  a {
+    background: none;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a.icon {
+    background: none;
+
+    &:hover {
+      color: $color-link;
+    }
+  }
+
+  nav {
+    ul {
+      display: block;
+      list-style-image: none;
+      list-style-position: outside;
+      list-style-type: none;
+      padding-inline-start: 40px;
+
+      li {
+        display: list-item;
+        margin-right: 0px;
+      }
+    }
+  }
+
+  nav>ul {
+    margin-block-end: 1em;
+    margin-block-start: 1em;
+  }
+
+  ul {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    li {
+      display: inline-block;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    li:last-child {
+      margin-right: 0;
+    }
+  }
+
+  #menu-icon {
+    float: right;
+    margin-right: 2rem;
+    margin-left: 20px;
+
+    &:hover {
+      color: $color-accent-1;
+    }
+  }
+
+  #up-icon {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    margin-left: 15px;
+
+    &:hover {
+      color: $color-accent-1;
+    }
+  }
+
+  .active {
+    color: $color-accent-1;
+  }
+
+  #menu {
+    visibility: visible;
+    margin-right: 2rem;
+  }
+
+  #nav {
+    color: $color-accent-1;
+    letter-spacing: .01em;
+    font-weight: 200;
+    font-style: normal;
+    font-size: .8rem;
+    float: right;
+
+    ul {
+      line-height: 15px;
+
+      a {
+        margin-right: 15px;
+        color: $color-accent-1;
+      }
+
+      a:hover {
+        @include underline(5px, $color-accent-1);
+      }
+
+      li {
+        border-right: 1px dotted $color-accent-1;
+      }
+
+      li:last-child {
+        margin-right: 0;
+        border-right: 0;
+
+        a {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  #actions {
+    float: right;
+    margin-top: 1rem;
+    margin-right: 2rem;
+    width: 100%;
+    text-align: right;
+
+    ul {
+      display: block;
+    }
+
+    .info {
+      display: block;
+      font-style: italic;
+    }
+  }
+
+  #toc {
+    float: right;
+    clear: both;
+    overflow: auto;
+    margin-top: 1rem;
+    padding-right: 2rem;
+    max-width: 20em;
+    max-height: calc(95vh - 7rem);
+    text-align: right;
+
+    a:hover {
+      color: $color-link;
+    }
+
+    nav>ul>li {
+      color: $color-text;
+      font-size: .8rem;
+
+      &:before {
+        color: $color-accent-1;
+        content: "#";
+        margin-right: 8px;
+      }
+    }
+
+    nav>ul>li>ul>li {
+      color: $color-meta;
+      font-size: .7rem;
+
+      &:before {
+        color: $color-accent-1;
+        content: "·";
+        font-weight: bold;
+        margin-right: 3px;
+      }
+    }
+
+    nav>ul>li>ul>li>ul>li {
+      color: darken($color-meta, 20%);
+      font-size: .4rem;
+    }
+
+    .toc-level-5 {
+      display: none;
+    }
+
+    .toc-level-6 {
+      display: none;
+    }
+
+    .toc-number {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #post-menu {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  #post-menu {
+    #actions {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  #post-menu {
+    #toc {
+      display: none;
+    }
+  }
+}
+
+@media screen and (min-width: 900px) {
+  #post-menu {
+    #up-icon {
+      display: none !important;
+    }
+  }
+}
+
+#footer-post {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5000000;
+  width: 100%;
+  border-top: 1px solid $color-border;
+  background: $color-footer-mobile-1;
+  transition: opacity .2s;
+
+  a {
+    background: none;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a.icon {
+    background: none;
+
+    &:hover {
+      color: $color-link;
+    }
+  }
+
+  #nav-footer {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    background: $color-footer-mobile-2;
+    text-align: center;
+
+    a {
+      color: $color-accent-1;
+      font-size: 1em;
+    }
+
+    a:hover {
+      @include underline(5px, $color-accent-1);
+    }
+
+    ul {
+      display: table;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      list-style-type: none;
+
+      li {
+        display: inline-table;
+        padding: 10px;
+        width: 20%;
+        vertical-align: middle;
+      }
+    }
+  }
+
+}
+
+@media screen and (min-width: 500px) {
+  #post-footer-mobile {
+    display: none;
+  }
+}

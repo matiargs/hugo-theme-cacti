@@ -1,0 +1,42 @@
+<div id="post-menu">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg" aria-hidden="true" onclick="toggle('menu')"></i></a>
+  <a id="up-icon" href="#" aria-label="Top of Page"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i></a>
+  <span id="menu" class="hide">
+    <span id="nav">
+      <ul>
+        {{ range .Site.Menus.main }}
+        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        {{ end }}
+      </ul>
+    </span>
+    <br />
+    <span id="actions">
+      <ul>
+        {{ if .Prev }}
+        <li>
+          <a class="icon" href=" {{ .Prev.Permalink }}" aria-label="Previous">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+          </a>
+        </li>
+        {{ end }}
+        {{ if .Next }}
+        <li>
+          <a class="icon" href="{{ .Next.Permalink }}" aria-label="Next">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+          </a>
+        </li>
+        {{ end }}
+        <li>
+          <a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"
+            aria-label="Top of Page">
+            <i class="fa fa-chevron-up" aria-hidden="true"></i>
+          </a>
+        </li>
+      </ul>
+    </span>
+    <br />
+    <div id="toc">
+      {{ .TableOfContents }}
+    </div>
+  </span>
+</div>

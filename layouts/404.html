@@ -1,0 +1,12 @@
+{{ define "main" }}
+  <div class="post">
+    <h1 class="post-title">
+      <a href="{{ .Permalink }}">{{ .Title | markdownify }}</a>
+    </h1>
+    <div class="post-content">
+      <p>
+        {{ "Hmm... Sorry, this page seems to be missing." | markdownify }}
+      </p>
+    </div>
+  </div>
+{{ end }}

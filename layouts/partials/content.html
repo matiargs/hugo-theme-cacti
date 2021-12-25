@@ -1,0 +1,71 @@
+ {{ $firstBracket := "\\[\\[" }}
+ {{ $lastBracket := "\\]\\]" }}
+
+ {{ $wikiregex := "\\[\\[([^/]+?)\\]\\]" }}
+
+ {{ $wikilinks := .Content | findRE $wikiregex }}
+
+ {{ $.Scratch.Add "content" .RawContent }}
+
+ {{ range $wikilinks }}
+    {{$.Scratch.Set "wikilink" ""}}
+    {{ $content := . | replaceRE $wikiregex "$1" }}
+    {{ $foundWikilink := "" }}
+
+    {{ $content := $content | replaceRE "\\?" "\\?" }}
+
+    {{ $wikilink :=  printf "%s%s%s" $firstBracket $content $lastBracket }}
+
+    <!-- anchorize convierte un titulo, ej: this is a header, a this-is-a-header -->
+    {{ $anchorized := $content | anchorize }}
+
+    {{ range where $.Site.RegularPages "File.BaseFileName" $content }}
+        {{ $.Scratch.Set "wikilink" .Permalink }}
+    {{ end }}
+
+    {{ $foundWikilink := $.Scratch.Get "wikilink" }}
+
+    {{ if $foundWikilink }}
+        {{ $.Scratch.Set "link" (printf "%s%s%s%s%s" "<a href=\"" $foundWikilink "\">" $content "</a>") }}
+    {{else }}
+        {{ $.Scratch.Set "link" (printf "%s%s%s" "<span class='no-link'>" $content "</span>")}}
+    {{end}}
+
+    {{ $link := $.Scratch.Get "link" }}
+    {{ $noteContent := $.Scratch.Get "content" | replaceRE $wikilink $link}}
+
+    {{ $.Scratch.Set "content" $noteContent }}
+    {{ $.Scratch.Set "link" ""}}
+ {{ end }}
+
+
+ {{ $firstPrivateBracket := "\\%\\%" }}
+ {{ $lastPrivateBracket := "\\%\\%" }}
+ {{ $privateRegex := "\\%\\%([^/]+?)\\%\\%" }}
+
+ {{ $privateData := .Content | findRE $privateRegex }}
+
+ {{ $.Scratch.Add "content" .RawContent }}
+
+ {{ range $privateData }}
+
+    {{ $content := . | replaceRE $privateRegex "$1" }}
+
+    {{ $content := $content | replaceRE "\\?" "\\?" }}
+
+    {{ $private :=  printf "%s%s%s" $firstPrivateBracket $content $lastPrivateBracket }}
+
+    {{ $private }}
+
+    {{ $link := printf "%s" "<span class='private-data'> ###### </span>" }}
+
+    {{ $noteContent := $.Scratch.Get "content" | replaceRE $private $link}}
+
+    {{ $.Scratch.Set "content" $noteContent }}
+ {{ end }}
+
+ {{ $content := .Scratch.Get "content" }}
+ {{ $content | markdownify }}
+
+
+

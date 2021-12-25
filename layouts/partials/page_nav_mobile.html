@@ -1,0 +1,11 @@
+<div id="post-footer-mobile">
+    <div id="footer-post">
+      <div id="nav-footer">
+        <ul>
+          {{ range .Site.Menus.main }}
+            <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+  </div>
