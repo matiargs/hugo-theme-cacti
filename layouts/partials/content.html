@@ -39,31 +39,6 @@
  {{ end }}
 
 
- {{ $firstPrivateBracket := "\\%\\%" }}
- {{ $lastPrivateBracket := "\\%\\%" }}
- {{ $privateRegex := "\\%\\%([^/]+?)\\%\\%" }}
-
- {{ $privateData := .Content | findRE $privateRegex }}
-
- {{ $.Scratch.Add "content" .RawContent }}
-
- {{ range $privateData }}
-
-    {{ $content := . | replaceRE $privateRegex "$1" }}
-
-    {{ $content := $content | replaceRE "\\?" "\\?" }}
-
-    {{ $private :=  printf "%s%s%s" $firstPrivateBracket $content $lastPrivateBracket }}
-
-    {{ $private }}
-
-    {{ $link := printf "%s" "<span class='private-data'> ###### </span>" }}
-
-    {{ $noteContent := $.Scratch.Get "content" | replaceRE $private $link}}
-
-    {{ $.Scratch.Set "content" $noteContent }}
- {{ end }}
-
  {{ $content := .Scratch.Get "content" }}
  {{ $content | markdownify }}
 
