@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
+
 {{ partial "head.html" . }}
 
 <body class="max-width mx-auto px3 ltr">
@@ -39,17 +40,18 @@
             {{ end }}
           </div>
           {{ end }}
-          {{/* {{ if gt .Params.tags 0 }}
+          {{ if gt .Params.tags 0 }}
           <div class="post-tag-list">
             <i class="fa fa-tag" aria-hidden="true"></i>
             {{ range $index, $value := .Params.tags }}
             {{ if gt $index 0 }}{{ print "," }}{{ end }}
             {{/* TODO: add taxonomy page for tags */}}
             {{/* <a class="tag-link" href="{{ " /tags/" | relLangURL }}{{ $value | urlize }}" rel="tag">{{ $value }}</a>
+            */}}
             <span>{{ $value }}</span>
             {{ end }}
           </div>
-          {{ end }} */}}
+          {{ end }}
         </div>
       </header>
 
@@ -65,7 +67,7 @@
       {{ end }} */}}
 
       <div class="content index" itemprop="articleBody">
-        {{ .Content }}
+        {{ partial "content.html" . }}
       </div>
 
       {{ partial "backlinks.html" . }}
