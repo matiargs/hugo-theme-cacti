@@ -1,46 +1,58 @@
- {{ $firstBracket := "\\[\\[" }}
- {{ $lastBracket := "\\]\\]" }}
+{{ $firstBracket := "\\[\\[" }}
+{{ $lastBracket := "\\]\\]" }}
 
- {{ $wikiregex := "\\[\\[([^/]+?)\\]\\]" }}
+{{ $wikiregex := "\\[\\[([^/]+?)\\]\\]" }}
 
- {{ $wikilinks := .Content | findRE $wikiregex }}
+{{ $wikilinks := .Content | findRE $wikiregex }}
 
- {{ $.Scratch.Add "content" .RawContent }}
+{{ $.Scratch.Add "content" .RawContent }}
 
- {{ range $wikilinks }}
-    {{$.Scratch.Set "wikilink" ""}}
-    {{ $content := . | replaceRE $wikiregex "$1" }}
-    {{ $foundWikilink := "" }}
+{{ range $wikilinks }}
+{{$.Scratch.Set "wikilink" ""}}
+{{ $content := . | replaceRE $wikiregex "$1" }}
+{{ $foundWikilink := "" }}
 
-    {{ $content := $content | replaceRE "\\?" "\\?" }}
+{{ $content := $content | replaceRE "\\?" "\\?" }}
 
-    {{ $wikilink :=  printf "%s%s%s" $firstBracket $content $lastBracket }}
+{{ $wikilink := printf "%s%s%s" $firstBracket $content $lastBracket }}
 
-    <!-- anchorize convierte un titulo, ej: this is a header, a this-is-a-header -->
-    {{ $anchorized := $content | anchorize }}
+<!-- anchorize convierte un titulo, ej: this is a header, a this-is-a-header -->
+{{ $anchorized := $content | anchorize }}
 
-    {{ range where $.Site.RegularPages "File.BaseFileName" $content }}
-        {{ $.Scratch.Set "wikilink" .Permalink }}
-    {{ end }}
+{{ range where $.Site.RegularPages "File.BaseFileName" $content }}
+{{ $.Scratch.Set "wikilink" .Permalink }}
+{{ end }}
 
-    {{ $foundWikilink := $.Scratch.Get "wikilink" }}
+{{ $foundWikilink := $.Scratch.Get "wikilink" }}
 
-    {{ if $foundWikilink }}
-        {{ $.Scratch.Set "link" (printf "%s%s%s%s%s" "<a href=\"" $foundWikilink "\">" $content "</a>") }}
-    {{else }}
-        {{ $.Scratch.Set "link" (printf "%s%s%s" "<span class='no-link'>" $content "</span>")}}
-    {{end}}
+{{ if $foundWikilink }}
+{{ $.Scratch.Set "link" (printf "%s%s%s%s%s" "<a href=\"" $foundWikilink "\">" $content "</a>") }}
+{{else }}
+{{ $.Scratch.Set "link" (printf "%s%s%s" "<span class='no-link'>" $content "</span>")}}
+{{end}}
 
-    {{ $link := $.Scratch.Get "link" }}
-    {{ $noteContent := $.Scratch.Get "content" | replaceRE $wikilink $link}}
+{{ $link := $.Scratch.Get "link" }}
+{{ $noteContent := $.Scratch.Get "content" | replaceRE $wikilink $link}}
 
-    {{ $.Scratch.Set "content" $noteContent }}
-    {{ $.Scratch.Set "link" ""}}
- {{ end }}
+{{ $.Scratch.Set "content" $noteContent }}
+{{ $.Scratch.Set "link" ""}}
+{{ end }}
 
+{{/* Image replacement */}}
+{{ $images := findRE "src=\"(.*?)\"" .Content }}
+{{ $link := .Parent.Permalink }}
+{{ range $images }}
+{{ $imgRef := strings.TrimRight "\"" (substr . 5) }}
+{{ $replace := $imgRef | printf "%s%s" $link }}
+{{ $.Scratch.Set "content" (replace (string ($.Scratch.Get "content")) $imgRef $replace) }}
+{{ end }}
 
- {{ $content := .Scratch.Get "content" }}
- {{ $content | markdownify }}
+{{/* Private text replacement */}}
+{{ $privates := findRE "%%(.*?)%%" .Content }}
+{{ range $privates }}
+{{ $replace := "█████████████" }}
+{{ $.Scratch.Set "content" (replace (string ($.Scratch.Get "content")) . $replace) }}
+{{ end }}
 
-
-
+{{ $content := .Scratch.Get "content" }}
+{{ $content | markdownify }}
