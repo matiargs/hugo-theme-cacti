@@ -282,3 +282,15 @@ pre {
     }
   }
 }
+
+.garden-category {
+  display: block;
+  color: $color-accent-1;
+  letter-spacing: .01em;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.1em;
+  margin-top: 1.2rem;
+
+  @include antialias();
+}
