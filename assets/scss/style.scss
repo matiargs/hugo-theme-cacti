@@ -44,6 +44,10 @@ body {
 
 }
 
+.backlinks {
+  width: $page-width;
+}
+
 .content {
   position: relative;
   display: flex;
@@ -126,10 +130,11 @@ body {
     align-items: center;
     align-content: center;
     margin-bottom: 20px;
-
+    margin-top: 1.8rem;
     .footer-left {
       align-self: flex-start;
       margin-right: 20px;
+
     }
 
     .footer-right {
@@ -294,3 +299,4 @@ pre {
 
   @include antialias();
 }
+

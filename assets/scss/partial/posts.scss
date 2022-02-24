@@ -22,11 +22,13 @@ article {
     .post-date {
       display: inline;
     }
+
+    margin-top: 1.8rem;
   }
 
   .content {
-    h2 {
-      &:before {
+    h2:hover  {
+      &:before{
         position: absolute;
         top: -3px;
         left: -1.4rem;
@@ -150,7 +152,7 @@ article {
 
 #post-menu {
   position: fixed;
-  top: 4rem;
+  top: 2rem;
   right: 0;
   display: inline-block;
   z-index: 100;
@@ -372,6 +374,10 @@ article {
       display: none !important;
     }
   }
+}
+
+.post {
+  margin-bottom: 2rem;
 }
 
 #footer-post {
