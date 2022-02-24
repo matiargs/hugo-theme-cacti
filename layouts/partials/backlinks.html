@@ -12,24 +12,29 @@ Regex not working for notes with colons on filename because hugo .File.BaseFileN
 
 {{ $wikilink :=  printf "%s%s%s" $firstBracket $filename $lastBracket }}
 
+{{ $backlinksList := slice }}
 {{- $.Scratch.Add "backlinks" slice -}}
-<hr>
-<h3>Backlinks</h3>
-{{/*  TODO: add backlink description  */}}
-<ul>
+
 {{- range .Site.Pages -}}
 	{{if (findRE $wikilink .Content) }}
-        {{ $.Scratch.Set "title" .Title }}
-		{{ $title := $.Scratch.Get "title" }}
-
-		{{ $.Scratch.Add "backlinks" (dict .Permalink $title) }}
-		<li><a href="{{ .Permalink }}">{{ $title }}</a></li>
+		{{ $.Scratch.Add "backlinks" (dict .Permalink .Title) }}
+		{{ $li := (printf "%s%s%s%s%s" "<li><a href=\"" .Permalink "\">" .Title "</a></li>")}}
+		{{ $backlinksList = $backlinksList | append $li}}
 	{{ end }}
 {{- end -}}
 
 {{- $backlinks := $.Scratch.Get "backlinks" -}}
 
-{{ if le (len $backlinks) 0 }}
-	<li>No backlinks found for this entry</li>
+{{ if gt (len $backlinks) 0 }}
+	<div class="backlinks">
+		<hr>
+		<h3>Backlinks</h3>
+		{{/*  TODO: add backlink description  */}}
+		<ul>
+		{{- range $backlinksList -}}
+			{{ . | markdownify }}
+		{{- end -}}
+
+		</ul>
+	</div>
 {{ end }}
-</ul>
