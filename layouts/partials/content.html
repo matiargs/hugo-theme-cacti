@@ -2,7 +2,6 @@
 {{ $lastBracket := "\\]\\]" }}
 
 {{ $wikiregex := "\\[\\[([^/]+?)\\]\\]" }}
-
 {{ $wikilinks := .Content | findRE $wikiregex }}
 
 {{ $.Scratch.Add "content" .RawContent }}
@@ -55,4 +54,4 @@
 {{ end }}
 
 {{ $content := .Scratch.Get "content" }}
-{{ $content | markdownify }}
+{{ $content | markdownify}}
