@@ -4,6 +4,11 @@
 
 {{ $.Scratch.Set "title" .File.BaseFileName }}
 
+{{ $.Scratch.Add "wordcount" 0 }}
+{{ range .Site.RegularPages}}
+{{ $.Scratch.Add "wordcount" .WordCount }}
+{{ end }}
+
 {{ $title := $.Scratch.Get "title" }}
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
     <div class="content index" itemprop="articleBody">
@@ -11,8 +16,7 @@
     </div>
 
     <div>
-        <h2>Stats</h2>
-        <p>Number of pages: {{ len .Site.RegularPages }}</p>
+        <p>pages: {{ len .Site.RegularPages }}, words: {{ $.Scratch.Get "wordcount" | lang.NumFmt 0 }}</p>
     </div>
 
     <div class="clearfix mt2 mb4">
