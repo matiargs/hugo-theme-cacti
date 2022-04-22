@@ -35,4 +35,23 @@
   </p>
   {{ end }}
 </section>
+
+<section>
+  <h2><i class="fa fa-line-chart" aria-hidden="true"></i> Stats April</h2>
+  <div>
+    <p class="title">Books</p>
+  </div>
+  <div>
+    <p class="title">Music</p>
+    <ul>
+    {{ range $.Site.Data.music.items }}
+    <li> {{ index .track "name"  }}</li>
+    {{ end }}
+    </ul>
+  </div>
+  <div>
+    <p class="title">Games</p>
+  </div>
+</section>
+
 {{ end }}
