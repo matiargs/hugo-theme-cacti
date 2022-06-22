@@ -36,6 +36,11 @@
   {{ end }}
   {{ end }}
 
-  <!-- TODO: add umami script -->
-  {{/*  <script async defer data-website-id="12f0e237-96ca-4fc3-bc3b-0aa04a567619" src="http://66.97.39.209/umami.js"></script>  */}}
+  <!-- Umami analytics -->
+  {{ if .Site.Params.analytics }}
+    {{ with .Site.Params.analytics }}
+      <script async defer data-website-id="{{ .id }}" src="{{ .url }}"></script>
+    {{ end }}
+  {{ end}}
+
 </head>
