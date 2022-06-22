@@ -19,7 +19,17 @@
         <p><i class="fa fa-line-chart" aria-hidden="true"></i> pages: {{ len .Site.RegularPages }}, words: {{ $.Scratch.Get "wordcount" | lang.NumFmt 0 }}</p>
     </div>
 
-    <div class="clearfix mt2 mb4">
+    <div>
+        <h3>lastmod:</h3>
+        <ul class="list-reset">
+            {{ range ( first 5 ( where .Site.Pages "Type" "garden" ).ByLastmod.Reverse ) }}
+                <li>↳ 
+                    <a href="{{ .Permalink }}">{{ .Title }}</a>
+                    <span style="color: #666; font-size:11px;">#{{ index .Params.categories 0 }}</span>
+                </li>
+            {{ end }}
+        </ul>
+    </div>
         <!-- <div class="flex flex-wrap content-start mt2 mb3"> -->
         {{ range .Site.Taxonomies.categories }}
         <div class="sm-col sm-col-6 md-col-5 lg-col-4 p1">
