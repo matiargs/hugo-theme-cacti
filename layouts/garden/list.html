@@ -30,10 +30,16 @@
             {{ end }}
         </ul>
     </div>
+
+    <div class="clearfix mb4">
         <!-- <div class="flex flex-wrap content-start mt2 mb3"> -->
         {{ range .Site.Taxonomies.categories }}
         <div class="sm-col sm-col-6 md-col-5 lg-col-4 p1">
-            <span class="garden-category"># {{ .Page.Title }}</span>
+            <span class="garden-category">
+                # {{ .Page.Title }}
+                <span style="color: #666; font-size:13px;">({{ len . }})</span>
+            </span>
+            
             <ul class="mt1 mb0 list-reset">
                 {{ range . }}
                 <li>↳ <a href="{{ .Page.RelPermalink}}">{{ .Page.Title }}</a></li>
