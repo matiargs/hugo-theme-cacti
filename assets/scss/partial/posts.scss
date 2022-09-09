@@ -1,4 +1,8 @@
 article {
+  li::marker {
+    color: $color-accent-1;
+  }
+  
   header {
     .title {
       margin-top: 0;
@@ -46,6 +50,8 @@ article {
     margin: auto;
     max-width: 100%;
     height: auto;
+    margin: 0px 20px;
+    border-radius: 4px;
 
     /* http://webdesignerwall.com/tutorials/css-elastic-videos */
     .video-container {

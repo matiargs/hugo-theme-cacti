@@ -23,7 +23,8 @@
         <h3>lastmod:</h3>
         <ul class="list-reset">
             {{ range ( first 5 ( where .Site.Pages "Type" "garden" ).ByLastmod.Reverse ) }}
-                <li>↳ 
+                <li>
+                    <span class="accent">↳</span>    
                     <a href="{{ .Permalink }}">{{ .Title }}</a>
                     <span style="color: #666; font-size:11px;">#{{ index .Params.categories 0 }}</span>
                 </li>
@@ -42,7 +43,7 @@
             
             <ul class="mt1 mb0 list-reset">
                 {{ range . }}
-                <li>↳ <a href="{{ .Page.RelPermalink}}">{{ .Page.Title }}</a></li>
+                <li><span class="accent">↳</span> <a href="{{ .Page.RelPermalink}}">{{ .Page.Title }}</a></li>
                 {{ end }}
             </ul>
         </div>
