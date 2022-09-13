@@ -9,6 +9,11 @@
 {{ $.Scratch.Add "wordcount" .WordCount }}
 {{ end }}
 
+{{ range .Site.RegularPages}}
+{{ $wikilinks := .Content | findRE "\\[\\[([^/]+?)\\]\\]" }}
+{{ $.Scratch.Add "wikilinksCount"  (len $wikilinks)}}
+{{ end }}
+
 {{ $title := $.Scratch.Get "title" }}
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
     <div class="content index" itemprop="articleBody">
@@ -16,7 +21,7 @@
     </div>
 
     <div>
-        <p><i class="fa fa-line-chart" aria-hidden="true"></i> pages: {{ len .Site.RegularPages }}, words: {{ $.Scratch.Get "wordcount" | lang.NumFmt 0 }}</p>
+        <p><i class="fa fa-line-chart" aria-hidden="true"></i> pages: {{ len .Site.RegularPages }} - words: {{ $.Scratch.Get "wordcount" | lang.NumFmt 0 }} - wikilinks: {{ $.Scratch.Get "wikilinksCount" | lang.NumFmt 0 }}</p>
     </div>
 
     <div>
@@ -51,6 +56,5 @@
     <!-- </div> -->
     </div>
 </article>
-
 
 {{ end }}
