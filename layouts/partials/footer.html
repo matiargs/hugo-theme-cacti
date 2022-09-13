@@ -2,4 +2,15 @@
   <div class="footer-left">
     {{ .Site.Title }} ->> Built with <a href="https://gohugo.io/">Hugo</a>
   </div>
+  <div>
+    <ul>
+      {{- range .Site.Menus.footer -}}
+      <li>
+        <a href="{{ .URL }}">
+          {{ .Name }}
+        </a>
+      </li>
+      {{- end -}}
+    </ul>
+  </div>
 </footer>
